@@ -69,179 +69,120 @@
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
-    background: var(--navy);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 2rem 5rem;
   }
-  .hero-bg-pattern {
-    position: absolute; inset: 0;
-    background-image:
-      radial-gradient(circle at 70% 30%, rgba(200,169,110,0.08) 0%, transparent 50%),
-      radial-gradient(circle at 20% 80%, rgba(42,69,104,0.6) 0%, transparent 40%);
-    pointer-events: none;
-  }
-  .hero-grid-lines {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-  }
-  .hero-left {
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 4rem 4rem 6rem;
-    position: relative; z-index: 2;
-  }
-  .hero-tag {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.2s;
-  }
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.4s;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent-light);
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-    color: rgba(248,247,244,0.65);
-    margin-bottom: 2rem;
-    max-width: 420px;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.6s;
-  }
-  .hero-affil {
-    display: flex; align-items: center; gap: 0.75rem;
-    font-size: 0.82rem;
-    color: rgba(248,247,244,0.5);
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.7s;
-  }
-  .hero-affil-dot {
-    width: 5px; height: 5px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .hero-links {
-    display: flex; flex-wrap: wrap; gap: 0.75rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.85s;
-  }
-  .hero-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    padding: 0.55rem 1.2rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .hero-link.primary {
-    background: var(--accent);
-    color: var(--navy);
-  }
-  .hero-link.primary:hover { background: var(--accent-light); }
-  .hero-link.outline {
-    border: 1px solid rgba(248,247,244,0.2);
-    color: rgba(248,247,244,0.8);
-  }
-  .hero-link.outline:hover { border-color: var(--accent); color: var(--accent); }
-
-  .hero-right {
-    display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 2;
-    padding: 8rem 5rem 4rem 2rem;
+  .hero-inner {
+    max-width: 860px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 5rem;
   }
   .hero-photo-wrap {
-    position: relative;
+    flex-shrink: 0;
     opacity: 0;
-    animation: fadeIn 0.8s ease forwards 1s;
-  }
-  .hero-photo-wrap::before {
-    content: '';
-    position: absolute;
-    top: -20px; left: -20px;
-    width: 220px; height: 220px;
-    border: 1px solid rgba(200,169,110,0.3);
-    border-radius: 50%;
-  }
-  .hero-photo-wrap::after {
-    content: '';
-    position: absolute;
-    top: -40px; left: -40px;
-    width: 260px; height: 260px;
-    border: 1px solid rgba(200,169,110,0.12);
-    border-radius: 50%;
+    animation: fadeIn 0.7s ease forwards 0.2s;
   }
   .hero-photo {
-    width: 180px; height: 180px;
+    width: 200px; height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid rgba(200,169,110,0.4);
-    background: var(--navy-mid);
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
+    border: 3px solid rgba(13,27,42,0.12);
+    display: block;
   }
   .hero-photo-placeholder {
-    width: 180px; height: 180px;
+    width: 200px; height: 200px;
     border-radius: 50%;
-    border: 3px solid rgba(200,169,110,0.4);
-    background: var(--navy-mid);
+    border: 2px solid rgba(13,27,42,0.15);
+    background: var(--white);
     display: flex; align-items: center; justify-content: center;
     flex-direction: column;
     gap: 0.5rem;
   }
-  .hero-photo-placeholder svg { opacity: 0.4; }
+  .hero-photo-placeholder svg { opacity: 0.25; }
   .hero-photo-placeholder span {
     font-size: 0.65rem;
-    color: rgba(248,247,244,0.3);
+    color: var(--gray-500);
     font-family: var(--mono);
     letter-spacing: 0.1em;
   }
-
-  .hero-stats {
-    position: absolute;
-    bottom: -1.5rem; right: -1.5rem;
-    background: rgba(13,27,42,0.9);
-    border: 1px solid rgba(200,169,110,0.2);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-    display: flex; gap: 1.5rem;
-    backdrop-filter: blur(8px);
+  .hero-text {
+    flex: 1;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
   }
-  .hero-stat { text-align: center; }
-  .hero-stat-num {
-    font-family: var(--serif);
-    font-size: 1.5rem;
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
     color: var(--accent);
-    line-height: 1;
-  }
-  .hero-stat-label {
-    font-size: 0.65rem;
-    color: rgba(248,247,244,0.4);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-top: 0.2rem;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .hero-role {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--navy-light);
+    margin-bottom: 0.3rem;
+  }
+  .hero-institution {
+    font-size: 0.9rem;
+    color: var(--gray-500);
+    margin-bottom: 0.2rem;
+  }
+  .hero-supervisor {
+    font-size: 0.88rem;
+    color: var(--gray-500);
+    margin-bottom: 1.5rem;
+  }
+  .hero-bio {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-links {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1.5px solid rgba(13,27,42,0.18);
+    color: var(--text-light);
+    background: var(--white);
+  }
+  .hero-link:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+    background: var(--white);
+  }
+  .hero-link.primary {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+  .hero-link.primary:hover {
+    background: var(--navy-light);
+    border-color: var(--navy-light);
   }
 
   /* ── SECTIONS ── */
@@ -646,9 +587,9 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    #hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
-    .hero-left { padding: 7rem 2rem 4rem; }
+    .hero-inner { flex-direction: column; gap: 2.5rem; text-align: center; }
+    .hero-links { justify-content: center; }
+    .hero-bio { margin: 0 auto 2rem; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .research-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -673,49 +614,30 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-pattern"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-left">
-    <div class="hero-tag">PhD Researcher · Maeda Lab · Institute of Science Tokyo</div>
-    <h1 class="hero-name">Amr <em>Marzuq</em></h1>
-    <p class="hero-subtitle">
-      Robotics researcher specializing in electrohydrodynamic (EHD) actuation for soft robotics, wearable human–machine interfaces, and VR/XR haptic systems.
-    </p>
-    <div class="hero-affil">
-      <div class="hero-affil-dot"></div>
-      Maeda Lab, Dept. of Mechanical Engineering — Tokyo, Japan
-      <div class="hero-affil-dot"></div>
-      IEEE RAS Member
-    </div>
-    <div class="hero-links">
-      <a href="mailto:amr.marzuq@gmail.com" class="hero-link primary">✉ Contact Me</a>
-      <a href="#publications" class="hero-link outline">📄 Publications</a>
-      <a href="https://www.linkedin.com/in/amr-marzuq-a03367ab/" target="_blank" class="hero-link outline">LinkedIn</a>
-      <a href="#" class="hero-link outline">Google Scholar</a>
-    </div>
-  </div>
-  <div class="hero-right">
+  <div class="hero-inner">
     <div class="hero-photo-wrap">
-      <img src="Amr_Photo.png" alt="Amr Marzuq" class="hero-photo">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(248,247,244,0.6)" stroke-width="1.5">
+      <div class="hero-photo-placeholder">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(13,27,42,0.3)" stroke-width="1.5">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
         <span>add photo</span>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">3</div>
-          <div class="hero-stat-label">Papers</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">3rd</div>
-          <div class="hero-stat-label">PhD Year</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">🏆</div>
-          <div class="hero-stat-label">Best Paper</div>
-        </div>
+    </div>
+    <div class="hero-text">
+      <div class="hero-tag">Maeda Lab · Institute of Science Tokyo</div>
+      <h1 class="hero-name">Amr Marzuq</h1>
+      <div class="hero-role">PhD Researcher in Robotics</div>
+      <div class="hero-institution">Institute of Science Tokyo (Science Tokyo)</div>
+      <div class="hero-supervisor">Supervised by Prof. Shingo Maeda · IEEE RAS Member</div>
+      <p class="hero-bio">
+        My research focuses on electrohydrodynamic (EHD) actuation for soft robotics and wearable human–machine interfaces. I build silent, flexible fluidic pumps and turn them into haptic gloves, prosthetic hands, and VR/XR systems. 🤖⚡🖐
+      </p>
+      <div class="hero-links">
+        <a href="mailto:amr.marzuq@gmail.com" class="hero-link primary">✉ Email</a>
+        <a href="https://www.linkedin.com/in/amr-marzuq-a03367ab/" target="_blank" class="hero-link">LinkedIn</a>
+        <a href="#publications" class="hero-link">Publications</a>
+        <a href="#" class="hero-link">Google Scholar</a>
       </div>
     </div>
   </div>
