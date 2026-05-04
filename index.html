@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amr Marzuq — Robotics Researcher, Science Tokyo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #1b2e45;
+    --navy-light: #2a4568;
+    --accent: #c8a96e;
+    --accent-light: #e8cfa0;
+    --white: #f8f7f4;
+    --gray-100: #f0ede8;
+    --gray-300: #c5bfb5;
+    --gray-500: #8a8278;
+    --text: #1a1614;
+    --text-light: #4a4540;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248, 247, 244, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(13,27,42,0.08);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--navy); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 70% 30%, rgba(200,169,110,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(42,69,104,0.6) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 6rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(248,247,244,0.65);
+    margin-bottom: 2rem;
+    max-width: 420px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.6s;
+  }
+  .hero-affil {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.82rem;
+    color: rgba(248,247,244,0.5);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.7s;
+  }
+  .hero-affil-dot {
+    width: 5px; height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .hero-links {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.85s;
+  }
+  .hero-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .hero-link.primary {
+    background: var(--accent);
+    color: var(--navy);
+  }
+  .hero-link.primary:hover { background: var(--accent-light); }
+  .hero-link.outline {
+    border: 1px solid rgba(248,247,244,0.2);
+    color: rgba(248,247,244,0.8);
+  }
+  .hero-link.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 2;
+    padding: 8rem 5rem 4rem 2rem;
+  }
+  .hero-photo-wrap {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 1s;
+  }
+  .hero-photo-wrap::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 220px; height: 220px;
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 50%;
+  }
+  .hero-photo-wrap::after {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 260px; height: 260px;
+    border: 1px solid rgba(200,169,110,0.12);
+    border-radius: 50%;
+  }
+  .hero-photo {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(200,169,110,0.4);
+    background: var(--navy-mid);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-photo-placeholder {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 3px solid rgba(200,169,110,0.4);
+    background: var(--navy-mid);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-photo-placeholder svg { opacity: 0.4; }
+  .hero-photo-placeholder span {
+    font-size: 0.65rem;
+    color: rgba(248,247,244,0.3);
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: -1.5rem; right: -1.5rem;
+    background: rgba(13,27,42,0.9);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    display: flex; gap: 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.65rem;
+    color: rgba(248,247,244,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 0; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 3rem;
+  }
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    margin: 1rem 0 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text-light);
+    margin-bottom: 1.25rem;
+    font-size: 0.97rem;
+  }
+  .about-text p strong { color: var(--navy); font-weight: 600; }
+  .about-interests { margin-top: 2rem; }
+  .about-interests-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 3px;
+    background: var(--gray-100);
+    color: var(--navy-mid);
+    font-weight: 500;
+    border: 1px solid rgba(13,27,42,0.08);
+  }
+  .about-sidebar {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 2rem;
+    color: var(--white);
+  }
+  .sidebar-item {
+    display: flex; gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(248,247,244,0.07);
+  }
+  .sidebar-item:last-child { border-bottom: none; }
+  .sidebar-icon {
+    width: 32px; height: 32px;
+    background: rgba(200,169,110,0.15);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .sidebar-content {}
+  .sidebar-label {
+    font-size: 0.68rem;
+    color: rgba(248,247,244,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .sidebar-value {
+    font-size: 0.85rem;
+    color: rgba(248,247,244,0.85);
+    font-weight: 500;
+  }
+
+  /* ── RESEARCH ── */
+  #research { background: var(--gray-100); }
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .research-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid rgba(13,27,42,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .research-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(13,27,42,0.1);
+  }
+  .research-icon {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.2rem;
+  }
+  .research-card h3 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .research-card p {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ── PUBLICATIONS ── */
+  #publications { background: var(--white); }
+  .pub-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .pub-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(13,27,42,0.08);
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pub-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 20px rgba(13,27,42,0.06);
+  }
+  .pub-year {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 500;
+    padding-top: 0.2rem;
+    min-width: 40px;
+  }
+  .pub-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .pub-badge.published { background: #e8f5e9; color: #2e7d32; }
+  .pub-badge.revision { background: #fff3e0; color: #e65100; }
+  .pub-badge.award { background: #fce4ec; color: #c62828; }
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--navy);
+    margin: 0.3rem 0 0.4rem;
+    line-height: 1.4;
+  }
+  .pub-authors {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+  }
+  .pub-authors strong { color: var(--navy); font-weight: 600; }
+  .pub-journal {
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+  .pub-links { margin-top: 0.75rem; display: flex; gap: 0.75rem; }
+  .pub-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--navy-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(42,69,104,0.3);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .pub-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--gray-100); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .timeline-item {
+    padding-left: 2.5rem;
+    padding-bottom: 2.5rem;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-role {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-org {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy-light);
+    margin-bottom: 0.75rem;
+  }
+  .timeline-desc {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+  .timeline-desc ul { padding-left: 1.2rem; }
+  .timeline-desc li { margin-bottom: 0.3rem; }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .timeline-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    background: rgba(13,27,42,0.07);
+    color: var(--navy-mid);
+    font-family: var(--mono);
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--white); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .project-card {
+    border: 1px solid rgba(13,27,42,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(13,27,42,0.1);
+  }
+  .project-header {
+    background: var(--navy);
+    padding: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .project-icon {
+    font-size: 1.5rem;
+    width: 44px; height: 44px;
+    background: rgba(200,169,110,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .project-header h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .project-body { padding: 1.5rem; }
+  .project-body p {
+    font-size: 0.84rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--navy);
+    color: var(--white);
+  }
+  #contact .section-title { color: var(--white); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-text {
+    font-size: 0.97rem;
+    color: rgba(248,247,244,0.65);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .contact-items { display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .contact-item-icon {
+    width: 40px; height: 40px;
+    background: rgba(200,169,110,0.12);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-item-label {
+    font-size: 0.7rem;
+    color: rgba(248,247,244,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .contact-item-value {
+    font-size: 0.9rem;
+    color: rgba(248,247,244,0.85);
+  }
+  .contact-item-value a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(248,247,244,0.2);
+    transition: border-color 0.2s;
+  }
+  .contact-item-value a:hover { border-color: var(--accent); color: var(--accent-light); }
+  .contact-cta {
+    background: rgba(248,247,244,0.04);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+  .contact-cta h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .contact-cta p {
+    font-size: 0.85rem;
+    color: rgba(248,247,244,0.5);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .btn-accent {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background: var(--accent);
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-accent:hover { background: var(--accent-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f18;
+    color: rgba(248,247,244,0.3);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .research-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Amr Marzuq</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-left">
+    <div class="hero-tag">PhD Researcher · Maeda Lab · Institute of Science Tokyo</div>
+    <h1 class="hero-name">Amr <em>Marzuq</em></h1>
+    <p class="hero-subtitle">
+      Robotics researcher specializing in electrohydrodynamic (EHD) actuation for soft robotics, wearable human–machine interfaces, and VR/XR haptic systems.
+    </p>
+    <div class="hero-affil">
+      <div class="hero-affil-dot"></div>
+      Maeda Lab, Dept. of Mechanical Engineering — Tokyo, Japan
+      <div class="hero-affil-dot"></div>
+      IEEE RAS Member
+    </div>
+    <div class="hero-links">
+      <a href="mailto:amr.marzuq@gmail.com" class="hero-link primary">✉ Contact Me</a>
+      <a href="#publications" class="hero-link outline">📄 Publications</a>
+      <a href="https://www.linkedin.com/in/amr-marzuq-a03367ab/" target="_blank" class="hero-link outline">LinkedIn</a>
+      <a href="#" class="hero-link outline">Google Scholar</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(248,247,244,0.6)" stroke-width="1.5">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>add photo</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Papers</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3rd</div>
+          <div class="hero-stat-label">PhD Year</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">🏆</div>
+          <div class="hero-stat-label">Best Paper</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="divider"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I am a third-year PhD candidate at the <strong>Institute of Science Tokyo</strong> (formerly Tokyo Tech), working in Prof. Shingo Maeda's lab within the WISE-SSS program. My research focuses on <strong>electrohydrodynamic (EHD) pump technology</strong> — a silent, flexible, and scalable actuation method — and its application to soft robotics and wearable human–machine interfaces.
+        </p>
+        <p>
+          My doctoral work spans the full stack from fundamental fluid physics to system-level wearable devices. I have developed resilient flexible EHD pumps that survive dielectric breakdown, high-power-density wire-electrode designs, and data-driven Bayesian optimization of dielectric fluid mixtures. My current ongoing work explores a <strong>VR/XR haptic-thermal feedback glove</strong> driven by EHD actuation.
+        </p>
+        <p>
+          Before my PhD, I worked as an Assistant Lecturer at Benha University (Egypt), an industrial robotics engineer deploying Kawasaki welding robots and automated packaging lines, and completed an MSc on a hybrid robotic-assisted system for neurosurgery. I am also a practicing ROS engineer, having implemented SLAM and autonomous navigation pipelines for self-driving vehicles.
+        </p>
+        <div class="about-interests">
+          <div class="about-interests-title">Research Interests</div>
+          <div class="tag-list">
+            <span class="tag">EHD Actuation</span>
+            <span class="tag">Soft Robotics</span>
+            <span class="tag">Wearable HMI</span>
+            <span class="tag">Haptic Feedback</span>
+            <span class="tag">Bayesian Optimization</span>
+            <span class="tag">Fluidic Systems</span>
+            <span class="tag">VR/XR Interfaces</span>
+            <span class="tag">Sim-to-Real</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-sidebar">
+        <div class="sidebar-item">
+          <div class="sidebar-icon">🎓</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">Degree</div>
+            <div class="sidebar-value">PhD, Mechanical Engineering / Robotics</div>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-icon">🏛</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">Institution</div>
+            <div class="sidebar-value">Institute of Science Tokyo</div>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-icon">🔬</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">Lab</div>
+            <div class="sidebar-value">Maeda Lab (WISE-SSS Program)</div>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-icon">📍</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">Location</div>
+            <div class="sidebar-value">Tokyo, Japan</div>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-icon">🌐</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">Languages</div>
+            <div class="sidebar-value">Arabic (native) · English (fluent) · Japanese (learning)</div>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sidebar-icon">⚡</div>
+          <div class="sidebar-content">
+            <div class="sidebar-label">GPA</div>
+            <div class="sidebar-value">3.73 / 4.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-label">02 — Research</div>
+    <h2 class="section-title">Research Themes</h2>
+    <div class="divider"></div>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-icon">⚡</div>
+        <h3>Structural Reliability of EHD Pumps</h3>
+        <p>Flexible comb-electrode EHD pumps with passive resilience against dielectric breakdown, maintaining ~90% performance through ~100 breakdown events. Published in <em>Advanced Science</em>, 2025.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🔋</div>
+        <h3>Power Density Optimization</h3>
+        <p>Self-recovering wire-electrode EHD pump architecture achieving significantly higher power density for portable actuation applications. Published in <em>Advanced Intelligent Systems</em>, 2026.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🧪</div>
+        <h3>Dielectric Fluid Optimization</h3>
+        <p>Bayesian optimization of HFE-Novec dielectric fluid mixtures to maximize EHD pump performance, revealing complex trade-offs between flowrate, pressure, and power consumption.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🖐</div>
+        <h3>Wearable VR/XR Haptic Glove</h3>
+        <p>EHD-driven wearable glove delivering haptic and thermal feedback for VR/XR applications. Demonstrated 12.4 kPa max pressure at 6.5 kV with 10 mm optimal diaphragm diameter at RoboSoft 2026.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🤖</div>
+        <h3>Soft Robotic Actuators</h3>
+        <p>McKibben artificial muscles driven by EHD pumps for prosthetic hand applications, achieving bidirectional actuation via polarity switching for natural grasping and manipulation motions.</p>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">🚗</div>
+        <h3>Autonomous Navigation</h3>
+        <p>ROS/Autoware pipelines for LiDAR-based SLAM and autonomous vehicle navigation, with real-world deployment on campus roads. Validated sim-to-real transfer using NDT-matching localization.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-label">03 — Publications</div>
+    <h2 class="section-title">Selected Publications</h2>
+    <div class="divider"></div>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <div class="pub-year">2026</div>
+        <div>
+          <span class="pub-badge published">✓ Published</span>
+          <div class="pub-title">Self-Recovering Wire-Electrode Electrohydrodynamic Pump for High Power Density Soft Robotic Actuation</div>
+          <div class="pub-authors"><strong>Amr Marzuq</strong> et al.</div>
+          <div class="pub-journal">Advanced Intelligent Systems, 2026</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link">DOI →</a>
+            <a href="#" class="pub-link">PDF →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2025</div>
+        <div>
+          <span class="pub-badge published">✓ Published</span>
+          <div class="pub-title">Resilient and Flexible Electrohydrodynamic Pumps for Human–Machine Interfaces</div>
+          <div class="pub-authors"><strong>Amr Marzuq</strong> et al.</div>
+          <div class="pub-journal">Advanced Science, 2025</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link">DOI →</a>
+            <a href="#" class="pub-link">PDF →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2025</div>
+        <div>
+          <span class="pub-badge revision">⟳ Under Revision</span>
+          <div class="pub-title">Bayesian Optimization of Dielectric Fluid Mixtures for Electrohydrodynamic Pump Performance Enhancement</div>
+          <div class="pub-authors"><strong>Amr Marzuq</strong> et al.</div>
+          <div class="pub-journal">Japanese Journal of Applied Physics (JJAP), under revision</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link">Preprint →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">2024</div>
+        <div>
+          <span class="pub-badge award">🏆 Best Paper Award</span>
+          <div class="pub-title">EHD Pump-Driven Soft Actuation System [MHS 2024 Best Paper]</div>
+          <div class="pub-authors"><strong>Amr Marzuq</strong> et al.</div>
+          <div class="pub-journal">IEEE International Symposium on Micro-Nano Mechatronics and Human Science (MHS), 2024</div>
+          <div class="pub-links">
+            <a href="#" class="pub-link">IEEE Xplore →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">04 — Experience</div>
+    <h2 class="section-title">Academic & Industry Experience</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">Oct 2023 – Present</div>
+        <div class="timeline-role">PhD Researcher</div>
+        <div class="timeline-org">Institute of Science Tokyo — Maeda Lab, WISE-SSS Program</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Design and optimize EHD actuation systems for soft robotics, integrating COMSOL simulation with experimental validation.</li>
+            <li>Build Python-based GUIs for real-time multi-channel data acquisition (pressure, flowrate, force, stage control).</li>
+            <li>Author peer-reviewed papers and present at international conferences including RoboSoft 2026.</li>
+          </ul>
+        </div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">EHD Actuation</span>
+          <span class="timeline-tag">COMSOL</span>
+          <span class="timeline-tag">Python</span>
+          <span class="timeline-tag">Soft Robotics</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Apr 2024 – Present</div>
+        <div class="timeline-role">Research Assistant — Robotics</div>
+        <div class="timeline-org">Super Smart Society Academy, Institute of Science Tokyo</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Program and deploy a UR5 robotic arm using ROS for manipulation, motion planning, and pick-and-place tasks.</li>
+            <li>Develop ROS/Autoware pipelines for LiDAR-based SLAM and autonomous campus vehicle navigation.</li>
+            <li>Implement C++ and Python algorithms for real-time robot control and sensor integration.</li>
+          </ul>
+        </div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">ROS</span>
+          <span class="timeline-tag">UR5</span>
+          <span class="timeline-tag">SLAM</span>
+          <span class="timeline-tag">Autoware</span>
+          <span class="timeline-tag">C++</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun 2021 – Mar 2023</div>
+        <div class="timeline-role">Assistant Lecturer</div>
+        <div class="timeline-org">Benha University, Faculty of Engineering — Egypt</div>
+        <div class="timeline-desc">
+          Taught Mechatronic System Design, SolidWorks, and Mechanical Design. Supervised undergraduate and postgraduate student projects including EMG-controlled prosthetic hands and LQR control systems.
+        </div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Teaching</span>
+          <span class="timeline-tag">SolidWorks</span>
+          <span class="timeline-tag">Control Systems</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2019 – Feb 2023</div>
+        <div class="timeline-role">Mechanical Engineer — Industrial Robotics</div>
+        <div class="timeline-org">Caionix — Egypt</div>
+        <div class="timeline-desc">
+          Designed and deployed industrial robotic automation solutions. Programmed Kawasaki MIG welding robots for automotive production (MOBICA). Designed automated packaging lines using 6-axis and SCARA robots for Unilever and Mondelez, integrated with Siemens PLCs.
+        </div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Kawasaki Robots</span>
+          <span class="timeline-tag">Siemens PLC</span>
+          <span class="timeline-tag">SCARA</span>
+          <span class="timeline-tag">SolidWorks</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">05 — Projects</div>
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🖐</div>
+          <h3>EHD-Driven Haptic & Thermal Feedback Glove for VR/XR</h3>
+        </div>
+        <div class="project-body">
+          <p>Wearable soft robotic glove delivering simultaneous haptic pressure and thermal feedback for virtual reality applications. Demonstrated at RoboSoft 2026 Industry–Academia Forum, Tokyo. Key specs: 12.4 kPa max pressure at 6.5 kV, 10 mm optimal diaphragm diameter.</p>
+          <div class="tag-list">
+            <span class="tag">EHD</span><span class="tag">Wearable</span><span class="tag">VR/XR</span><span class="tag">Haptics</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🤖</div>
+          <h3>Prosthetic Hand with EHD-Driven McKibben Muscles</h3>
+        </div>
+        <div class="project-body">
+          <p>Bidirectional prosthetic hand using McKibben artificial muscles actuated by high-pressure EHD pumps. Polarity switching enables natural motions including handshake, cup grasping, and object lifting without external compressors.</p>
+          <div class="tag-list">
+            <span class="tag">Prosthetics</span><span class="tag">McKibben</span><span class="tag">EHD</span><span class="tag">HMI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🚗</div>
+          <h3>ROS-Based Autonomous Campus Vehicle</h3>
+        </div>
+        <div class="project-body">
+          <p>Self-driving electric vehicle with LiDAR, radar, and GPS, using ROS/Autoware for SLAM, NDT-matching localization, and autonomous navigation. Successfully demonstrated on Ookayama campus roads with full obstacle avoidance.</p>
+          <div class="tag-list">
+            <span class="tag">ROS</span><span class="tag">Autoware</span><span class="tag">SLAM</span><span class="tag">LiDAR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🧠</div>
+          <h3>Hybrid Robotic-Assisted System for Neurosurgery</h3>
+        </div>
+        <div class="project-body">
+          <p>MSc thesis project: a novel 5-DOF Remote Center of Motion (RCM) hybrid mechanism for minimally invasive stereotactic neurosurgery. Developed kinematics, dynamics, trajectory planning, and real-time PID control validated in Adams/MATLAB.</p>
+          <div class="tag-list">
+            <span class="tag">Surgical Robotics</span><span class="tag">RCM</span><span class="tag">MATLAB</span><span class="tag">C++</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label" style="color: rgba(200,169,110,0.7)">06 — Contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="divider"></div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-text">
+          I am open to research collaborations, academic visits, and discussions about soft robotics, EHD actuation, and wearable HMI systems. Feel free to reach out for any inquiries.
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">✉</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value"><a href="mailto:amr.marzuq@gmail.com">amr.marzuq@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">💼</div>
+            <div>
+              <div class="contact-item-label">LinkedIn</div>
+              <div class="contact-item-value"><a href="https://www.linkedin.com/in/amr-marzuq-a03367ab/" target="_blank">linkedin.com/in/amr-marzuq</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-value">Tokyo, Japan</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🏛</div>
+            <div>
+              <div class="contact-item-label">Institution</div>
+              <div class="contact-item-value">Institute of Science Tokyo — Maeda Lab</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta">
+        <h3>Open to Collaboration</h3>
+        <p>Particularly interested in connecting with researchers working on soft actuators, wearable robotics, human–machine interfaces, and VR/XR haptic systems.</p>
+        <a href="mailto:amr.marzuq@gmail.com" class="btn-accent">Send an Email →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Amr Marzuq · Institute of Science Tokyo · Maeda Lab · © 2026
+</footer>
+
+</body>
+</html>
